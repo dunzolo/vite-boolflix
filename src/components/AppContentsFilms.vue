@@ -1,7 +1,11 @@
 <script>
 import { store } from '../store.js';
+import AppFilm from './AppFilm.vue';
 
 export default {
+    components: {
+        AppFilm
+    },
     data() {
         return {
             store
@@ -11,25 +15,20 @@ export default {
 </script>
 
 <template lang="">
-    <div class="film" v-for="(item, index) in store.filtered_array_films" :key="index">
-        <p>
-            {{ item.original_title }}
-        </p>
-        <p>
-            {{ item.title }}
-        </p>
-        <p>
-            {{ item.original_language }}
-        </p>
-        <p>
-            {{ item.vote_average }}
-        </p>
+    <div class="container">
+        <div class="row">
+            <AppFilm class="col-4 film" v-for="(item, index) in store.filtered_array_films" :key="index" :film="item"/>
+        </div>
     </div>
 </template>
 
-<style lang="scss">
-.film {
-    text-align: center;
-    margin-bottom: 2rem;
+<style lang="scss" scoped>
+.row {
+    display: flex;
+
+    .film {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
 }
 </style>

@@ -7,6 +7,7 @@ export default {
     },
     methods: {
         sendTitle() {
+            //posso recuperare nella funzione il valore di title nell'input v-model
             this.$emit('title', this.title)
         }
     },

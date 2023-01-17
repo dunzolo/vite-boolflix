@@ -26,6 +26,7 @@ export default {
       })
     },
     searchTitle(title) {
+      //filtro l'array dei film in base al titolo inserito nella search bar passata tramite $emit
       store.filtered_array_films = store.array_films.filter((elem) => {
         return elem.title.toLowerCase().includes(title);
       })
