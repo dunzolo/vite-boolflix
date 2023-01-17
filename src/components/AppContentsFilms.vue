@@ -17,7 +17,7 @@ export default {
 <template lang="">
     <div class="container">
         <div class="row">
-            <AppFilm class="col-4 film" v-for="(item, index) in store.filtered_array_films" :key="index" :film="item"/>
+            <AppFilm class="col-2 film" v-for="(item, index) in store.array_films" :key="index" :film="item"/>
         </div>
     </div>
 </template>

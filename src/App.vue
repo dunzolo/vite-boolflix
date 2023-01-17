@@ -15,20 +15,14 @@ export default {
       store
     }
   },
-  created() {
-    this.getCatalog();
-  },
   methods: {
-    getCatalog() {
-      axios.get(store.url).then((response) => {
-        store.array_films = response.data.results
-        console.log(store.array_films);
-      })
-    },
     searchTitle(title) {
-      //filtro l'array dei film in base al titolo inserito nella search bar passata tramite $emit
-      store.filtered_array_films = store.array_films.filter((elem) => {
-        return elem.title.toLowerCase().includes(title);
+      console.log(store.url);
+      let newUrl = store.url;
+      newUrl += title;
+      console.log(newUrl);
+      axios.get(newUrl).then((response) => {
+        store.array_films = response.data.results
       })
     }
   },
