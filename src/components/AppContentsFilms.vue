@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template lang="">
-    <div class="film" v-for="(item, index) in store.array_films" :key="index">
+    <div class="film" v-for="(item, index) in store.filtered_array_films" :key="index">
         <p>
             {{ item.original_title }}
         </p>

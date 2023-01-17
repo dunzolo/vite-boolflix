@@ -24,6 +24,11 @@ export default {
         store.array_films = response.data.results
         console.log(store.array_films);
       })
+    },
+    searchTitle(title) {
+      store.filtered_array_films = store.array_films.filter((elem) => {
+        return elem.title.toLowerCase().includes(title);
+      })
     }
   },
 }
@@ -31,8 +36,8 @@ export default {
 
 <template lang="">
   <div>
-    <AppHeader/>
-    <AppContentsFilms/>
+    <AppHeader @title="searchTitle"/>
+    <AppContentsFilms />
   </div>
 </template>
 
