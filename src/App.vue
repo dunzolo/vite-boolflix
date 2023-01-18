@@ -2,13 +2,15 @@
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppContentsFilms from './components/AppContentsFilms.vue';
+import AppContentsSeriesTV from './components/AppContentsSeriesTV.vue';
 
 import { store } from './store.js';
 
 export default {
   components: {
     AppHeader,
-    AppContentsFilms
+    AppContentsFilms,
+    AppContentsSeriesTV
   },
   data() {
     return {
@@ -17,12 +19,15 @@ export default {
   },
   methods: {
     searchTitle(title) {
-      console.log(store.url);
-      let newUrl = store.url;
-      newUrl += title;
-      console.log(newUrl);
-      axios.get(newUrl).then((response) => {
+      let new_url_films = store.url_films;
+      let new_url_series_tv = store.url_series_TV;
+      new_url_films += title;
+      new_url_series_tv += title;
+      axios.get(new_url_films).then((response) => {
         store.array_films = response.data.results
+      })
+      axios.get(new_url_series_tv).then((response) => {
+        store.array_series_TV = response.data.results
       })
     }
   },
@@ -33,6 +38,7 @@ export default {
   <div>
     <AppHeader @title="searchTitle"/>
     <AppContentsFilms />
+    <AppContentsSeriesTV />
   </div>
 </template>
 

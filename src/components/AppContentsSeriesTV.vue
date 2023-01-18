@@ -1,10 +1,10 @@
 <script>
 import { store } from '../store.js';
-import AppFilm from './AppFilm.vue';
+import AppSeriesTV from './AppSeriesTV.vue';
 
 export default {
     components: {
-        AppFilm
+        AppSeriesTV
     },
     data() {
         return {
@@ -16,13 +16,13 @@ export default {
 
 <template lang="">
     <div class="container">
-        <h1>Films</h1>
+        <h1>Series TV</h1>
         <div class="row">
-            <AppFilm class="col-2 text-center mb-2" v-for="(item, index) in store.array_films" :key="index" :film="item"/>
+            <AppSeriesTV class="col-2 text-center mb-2" v-for="(item, index) in store.array_series_TV" :key="index" :series_tv="item"/>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 </style>
