@@ -21,6 +21,14 @@ export default {
                     break;
             }
             return language
+        },
+        getVoteStars() {
+            let vote = Math.round(this.film.vote_average / 2);
+            return vote;
+        },
+        getEmptyVoteStars() {
+            let empty_vote = 5 - this.getVoteStars();
+            return empty_vote;
         }
     },
 }
@@ -31,11 +39,16 @@ export default {
         <img :src="`https://image.tmdb.org/t/p/w200${film.backdrop_path}`" alt="">
         <p>{{ film.original_title }}</p>
         <p>{{ film.title }}</p>
-        <p>{{ film.vote_average }}</p>
+        <i class="fa-solid fa-star color-yellow" v-for="(item, index) in getVoteStars()" :key="index"></i>
+        <i class="fa-regular fa-star color-yellow" v-for="(item, index) in getEmptyVoteStars()" :key="index"></i>
         <img :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
     </div>
 </template>
 
 <style lang="scss">
+@use '../styles/partials/variables' as *;
 
+.color-yellow {
+    color: $yellow;
+}
 </style>
