@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template lang="">
-    <div class="container">
+    <div class="container-fluid">
         <h1>Series TV</h1>
         <div class="row">
             <AppSeriesTV v-for="(item, index) in store.array_series_TV" :key="index" :series_tv="item"/>

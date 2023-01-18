@@ -11,6 +11,11 @@ body {
     background-color: rgb(75, 73, 73);
 }
 
+.row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
 .card {
     border: none !important;
     background-color: transparent !important;

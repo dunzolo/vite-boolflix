@@ -35,20 +35,20 @@ export default {
             let empty_vote = 5 - this.getVoteStars();
             return empty_vote;
         },
-        // lenghtDescription() {
-        //     console.log(this.film.overview.length);
-        //     if (this.film.overview.length > 350) {
-        //         this.film.overview = this.film.overview.substring(0, 201) + '...'
-        //         return this.film.overview
-        //     }
-        //     return this.film.overview
-        // }
+        lenghtDescription() {
+            console.log(this.film.overview.length);
+            if (this.film.overview.length > 250) {
+                this.film.overview = this.film.overview.substring(0, 201) + '...'
+                return this.film.overview
+            }
+            return this.film.overview
+        }
     }
 }
 </script>
 
 <template lang="">
-    <div class="col-4 mb-2" @mouseover="visibility=false" @mouseleave="visibility=true">
+    <div class="col-2 card mb-2" @mouseover="visibility=false" @mouseleave="visibility=true">
         <div v-if="visibility" class="card h-20-rem">
             <img class="image-film" :src="`https://image.tmdb.org/t/p/w342${film.backdrop_path}`" alt="">
         </div>
@@ -68,8 +68,8 @@ export default {
             </p>
             <p>
                 <span class="fw-bold">Descrizione: </span>
-                <span> {{ film.overview }}</span>
-                <!-- <span>{{ lenghtDescription() }}</span> -->
+                <!-- <span> {{ film.overview }}</span> -->
+                <span>{{ lenghtDescription() }}</span>
             </p>
             <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
         </div>
@@ -78,6 +78,10 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
+.card {
+    display: flex;
+}
 
 .h-20-rem {
     height: 20rem;

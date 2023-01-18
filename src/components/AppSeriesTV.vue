@@ -35,20 +35,19 @@ export default {
             let empty_vote = 5 - this.getVoteStars();
             return empty_vote;
         },
-        // lenghtDescription() {
-        //     console.log(this.series_tv.overview.length);
-        //     if (this.series_tv.overview.length > 350) {
-        //         this.series_tv.overview = this.series_tv.overview.substring(0, 201) + '...'
-        //         return this.series_tv.overview
-        //     }
-        //     return this.series_tv.overview
-        // }
+        lenghtDescription() {
+            if (this.series_tv.overview.length > 350) {
+                this.series_tv.overview = this.series_tv.overview.substring(0, 201) + '...'
+                return this.series_tv.overview
+            }
+            return this.series_tv.overview
+        }
     },
 }
 </script>
 
 <template lang="">
-    <div class="col-4 mb-2" @mouseover="visibility=false" @mouseleave="visibility=true">
+    <div class="col-2 mb-2" @mouseover="visibility=false" @mouseleave="visibility=true">
         <div v-if="visibility" class="card h-20-rem">
             <img class="image-film" :src="`https://image.tmdb.org/t/p/w342${series_tv.backdrop_path}`" alt="">
         </div>
@@ -68,8 +67,8 @@ export default {
             </p>
             <p>
                 <span class="fw-bold">Descrizione: </span>
-                <span> {{ series_tv.overview }}</span>
-                <!-- <span>{{ lenghtDescription() }}</span> -->
+                <!-- <span> {{ series_tv.overview }}</span> -->
+                <span>{{ lenghtDescription() }}</span>
             </p>
             <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
         </div>
