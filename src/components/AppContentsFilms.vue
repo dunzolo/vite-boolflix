@@ -18,11 +18,15 @@ export default {
     <div class="container">
         <h1>Films</h1>
         <div class="row">
-            <AppFilm class="col-2 text-center mb-2" v-for="(item, index) in store.array_films" :key="index" :film="item"/>
+            <AppFilm v-for="(item, index) in store.array_films" :key="index" :film="item"/>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+@use '../styles/partials/variables' as *;
 
+h1 {
+    color: $white;
+}
 </style>

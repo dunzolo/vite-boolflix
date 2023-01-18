@@ -18,11 +18,15 @@ export default {
     <div class="container">
         <h1>Series TV</h1>
         <div class="row">
-            <AppSeriesTV class="col-2 text-center mb-2" v-for="(item, index) in store.array_series_TV" :key="index" :series_tv="item"/>
+            <AppSeriesTV v-for="(item, index) in store.array_series_TV" :key="index" :series_tv="item"/>
         </div>
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@use '../styles/partials/variables' as *;
 
+h1 {
+    color: $white;
+}
 </style>
