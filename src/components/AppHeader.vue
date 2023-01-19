@@ -1,7 +1,11 @@
 <script>
+import axios from 'axios';
+import { store } from '../store.js';
+
 export default {
     data() {
         return {
+            store,
             title: '',
             menu: [
                 {
@@ -31,7 +35,15 @@ export default {
             ]
         }
     },
+    created() {
+        this.getGenre();
+    },
     methods: {
+        getGenre() {
+            axios.get(store.url_genre_films).then((response) => {
+                store.array_genre_films = response.data.genres
+            })
+        },
         sendTitle() {
             //posso recuperare nella funzione il valore di title nell'input v-model
             this.$emit('title', this.title)
@@ -54,6 +66,10 @@ export default {
         </div>
         <div class="header-right">
             <div class="input-group">
+                <select name="genre-films" id="genre-films" class="form-select" v-model="store.selected_genre">
+                    <option value="">Genere film</option>
+                    <option :value="item.id" v-for="(item, index) in store.array_genre_films" :key="index">{{ item.name }}</option>
+                </select>
                 <input class="form-control" type="text" placeholder="Inserisci il titolo" v-model="title">
                 <button class="btn btn-danger" @click="sendTitle"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>

@@ -40,8 +40,8 @@ export default {
       axios.get(new_url_series_tv).then((response) => {
         store.array_series_TV = response.data.results
       })
-    }
-  },
+    },
+  }
 }
 </script>
 

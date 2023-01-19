@@ -11,6 +11,11 @@ export default {
             store
         }
     },
+    computed: {
+        backgroundImage() {
+
+        }
+    }
 }
 </script>
 
@@ -25,6 +30,26 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
+.row {
+    &::-webkit-scrollbar {
+        height: 0.3rem;
+        max-width: 10px;
+        margin: 5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $grey;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $red;
+        max-width: 10px;
+        height: 10px;
+        border-radius: 20px;
+    }
+}
 
 h1 {
     color: $white;
