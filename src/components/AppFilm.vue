@@ -5,13 +5,11 @@ export default {
     },
     data() {
         return {
-            visibility: true
         }
     },
     methods: {
         getFlag() {
             let language = this.film.original_language.toUpperCase();
-            console.log(language);
             switch (language) {
                 case 'EN':
                     language = 'GB'
@@ -36,8 +34,7 @@ export default {
             return empty_vote;
         },
         lenghtDescription() {
-            console.log(this.film.overview.length);
-            if (this.film.overview.length > 250) {
+            if (this.film.overview.length > 200) {
                 this.film.overview = this.film.overview.substring(0, 201) + '...'
                 return this.film.overview
             }
@@ -48,30 +45,33 @@ export default {
 </script>
 
 <template lang="">
-    <div class="col-2 card mb-2" @mouseover="visibility=false" @mouseleave="visibility=true">
-        <div v-if="visibility" class="card h-20-rem">
-            <img class="image-film" :src="`https://image.tmdb.org/t/p/w342${film.backdrop_path}`" alt="">
-        </div>
-        <div v-if="!visibility" class="info h-20-rem p-2">
-            <h4>
-                <span class="fw-bold">Titolo: </span>
-                <span>{{ film.original_title }}</span>
-            </h4>
-            <p>
-                <span class="fw-bold">Titolo originale: </span>
-                <span>{{ film.title }}</span>
-            </p>
-            <p>
-                <span class="fw-bold">Voto: </span>
-                <i class="fa-solid fa-star color-yellow" v-for="(item, index) in getVoteStars()" :key="index"></i>
-                <i class="fa-regular fa-star color-yellow" v-for="(item, index) in getEmptyVoteStars()" :key="index"></i>
-            </p>
-            <p>
-                <span class="fw-bold">Descrizione: </span>
-                <!-- <span> {{ film.overview }}</span> -->
-                <span>{{ lenghtDescription() }}</span>
-            </p>
-            <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
+    <div class="col-2 mb-2">
+        <div class="card">
+            <div class="front">
+                <img class="image-film" :src="`https://image.tmdb.org/t/p/w342${film.backdrop_path}`" alt="">
+            </div>
+            <div class="back">
+                <div class="info p-2">
+                    <h4>
+                        <span class="fw-bold">Titolo: </span>
+                        <span>{{ film.original_title }}</span>
+                    </h4>
+                    <p>
+                        <span class="fw-bold">Titolo originale: </span>
+                        <span>{{ film.title }}</span>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Voto: </span>
+                        <i class="fa-solid fa-star color-yellow" v-for="(item, index) in getVoteStars()" :key="index"></i>
+                        <i class="fa-regular fa-star color-yellow" v-for="(item, index) in getEmptyVoteStars()" :key="index"></i>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Descrizione: </span>
+                        <span>{{ lenghtDescription() }}</span>
+                    </p>
+                    <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -80,38 +80,67 @@ export default {
 @use '../styles/partials/variables' as *;
 
 .card {
-    display: flex;
-}
+    height: 350px;
 
-.h-20-rem {
-    height: 20rem;
+    /* style the maincontainer class with all child div's of class .front */
+    & .front {
+        position: absolute;
+        transform: perspective(600px) rotateY(0deg);
 
-    .image-film {
+        width: 100%;
         height: 100%;
-        object-fit: cover;
+
+        backface-visibility: hidden;
+        /* cant see the backside elements as theyre turning around */
+        transition: transform .5s linear 0s;
+
+        .image-film {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+        }
     }
-}
 
-.info {
-    background-color: $black;
-    color: $white;
-    border: 1px solid $white;
-}
+    /* style the maincontainer class with all child div's of class .back */
+    & .back {
+        position: absolute;
+        transform: perspective(600px) rotateY(180deg);
+        background: $black;
+        color: $white;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        padding: 5px;
+        backface-visibility: hidden;
+        /* cant see the backside elements as theyre turning around */
+        transition: transform .5s linear 0s;
 
-.flag {
-    width: 50px;
-}
+        .color-yellow {
+            color: $yellow;
+        }
+    }
 
-.col-4:hover {
-    cursor: pointer;
-}
+    &:hover .front {
+        transform: perspective(600px) rotateY(-180deg);
+    }
 
-h4,
-p {
-    margin-bottom: 0 !important;
-}
+    &:hover .back {
+        transform: perspective(600px) rotateY(0deg);
+    }
 
-.color-yellow {
-    color: $yellow;
+    .flag {
+        width: 50px;
+    }
+
+    h4,
+    p {
+        margin-bottom: 0 !important;
+    }
+
+
+    img {
+        border-radius: 10px;
+    }
 }
 </style>

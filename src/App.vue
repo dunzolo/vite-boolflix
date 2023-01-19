@@ -17,7 +17,18 @@ export default {
       store
     }
   },
+  created() {
+    this.getCatalog();
+  },
   methods: {
+    getCatalog() {
+      axios.get(store.url_catalog_films).then((response) => {
+        store.array_films = response.data.results
+      })
+      axios.get(store.url_catalog_series_tv).then((response) => {
+        store.array_series_TV = response.data.results
+      })
+    },
     searchTitle(title) {
       let new_url_films = store.url_films;
       let new_url_series_tv = store.url_series_TV;

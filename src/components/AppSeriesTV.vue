@@ -5,13 +5,11 @@ export default {
     },
     data() {
         return {
-            visibility: true
         }
     },
     methods: {
         getFlag() {
             let language = this.series_tv.original_language.toUpperCase();
-            console.log(language);
             switch (language) {
                 case 'EN':
                     language = 'GB'
@@ -27,6 +25,13 @@ export default {
             }
             return language
         },
+        getImage() {
+            console.log(this.series_tv.backdrop_path);
+            if (this.series_tv.backdrop_path)
+                return `https://image.tmdb.org/t/p/w342${this.series_tv.backdrop_path}`
+            else
+                return '/index.jpg'
+        },
         getVoteStars() {
             let vote = Math.round(this.series_tv.vote_average / 2);
             return vote;
@@ -36,7 +41,7 @@ export default {
             return empty_vote;
         },
         lenghtDescription() {
-            if (this.series_tv.overview.length > 350) {
+            if (this.series_tv.overview.length > 200) {
                 this.series_tv.overview = this.series_tv.overview.substring(0, 201) + '...'
                 return this.series_tv.overview
             }
@@ -47,30 +52,33 @@ export default {
 </script>
 
 <template lang="">
-    <div class="col-2 mb-2" @mouseover="visibility=false" @mouseleave="visibility=true">
-        <div v-if="visibility" class="card h-20-rem">
-            <img class="image-film" :src="`https://image.tmdb.org/t/p/w342${series_tv.backdrop_path}`" alt="">
-        </div>
-        <div v-if="!visibility" class="info h-20-rem p-2">
-            <h4>
-                <span class="fw-bold">Titolo: </span>
-                <span>{{ series_tv.name }}</span>
-            </h4>
-            <p>
-                <span class="fw-bold">Titolo originale: </span>
-                <span>{{ series_tv.original_name }}</span>
-            </p>
-            <p>
-                <span class="fw-bold">Voto: </span>
-                <i class="fa-solid fa-star color-yellow" v-for="(item, index) in getVoteStars()" :key="index"></i>
-                <i class="fa-regular fa-star color-yellow" v-for="(item, index) in getEmptyVoteStars()" :key="index"></i>
-            </p>
-            <p>
-                <span class="fw-bold">Descrizione: </span>
-                <!-- <span> {{ series_tv.overview }}</span> -->
-                <span>{{ lenghtDescription() }}</span>
-            </p>
-            <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
+    <div class="col-2 mb-2">
+        <div class="card">
+            <div class="front">
+                <img class="image-film" :src="getImage()" alt="">
+            </div>
+            <div class="back">
+                <div class="info p-2">
+                    <h4>
+                        <span class="fw-bold">Titolo: </span>
+                        <span>{{ series_tv.name }}</span>
+                    </h4>
+                    <p>
+                        <span class="fw-bold">Titolo originale: </span>
+                        <span>{{ series_tv.original_name }}</span>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Voto: </span>
+                        <i class="fa-solid fa-star color-yellow" v-for="(item, index) in getVoteStars()" :key="index"></i>
+                        <i class="fa-regular fa-star color-yellow" v-for="(item, index) in getEmptyVoteStars()" :key="index"></i>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Descrizione: </span>
+                        <span>{{ lenghtDescription() }}</span>
+                    </p>
+                    <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -78,35 +86,68 @@ export default {
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
-.h-20-rem {
-    height: 20rem;
+.card {
+    height: 350px;
 
-    .image-film {
+    /* style the maincontainer class with all child div's of class .front */
+    & .front {
+        position: absolute;
+        transform: perspective(600px) rotateY(0deg);
+
+        width: 100%;
         height: 100%;
-        object-fit: cover;
+
+        backface-visibility: hidden;
+        /* cant see the backside elements as theyre turning around */
+        transition: transform .5s linear 0s;
+
+        .image-film {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+        }
     }
-}
 
-.info {
-    background-color: $black;
-    color: $white;
-    border: 1px solid $white;
-}
+    /* style the maincontainer class with all child div's of class .back */
+    & .back {
+        position: absolute;
+        transform: perspective(600px) rotateY(180deg);
+        background: $black;
+        color: $white;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        padding: 5px;
+        backface-visibility: hidden;
+        /* cant see the backside elements as theyre turning around */
+        transition: transform .5s linear 0s;
 
-.flag {
-    width: 50px;
-}
+        .color-yellow {
+            color: $yellow;
+        }
+    }
 
-.col-4:hover {
-    cursor: pointer;
-}
+    &:hover .front {
+        transform: perspective(600px) rotateY(-180deg);
+    }
 
-h4,
-p {
-    margin-bottom: 0 !important;
-}
+    &:hover .back {
+        transform: perspective(600px) rotateY(0deg);
+    }
 
-.color-yellow {
-    color: $yellow;
+    .flag {
+        width: 50px;
+    }
+
+    h4,
+    p {
+        margin-bottom: 0 !important;
+    }
+
+
+    img {
+        border-radius: 10px;
+    }
 }
 </style>
