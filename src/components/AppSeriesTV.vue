@@ -26,7 +26,6 @@ export default {
             return language
         },
         getImage() {
-            console.log(this.series_tv.backdrop_path);
             if (this.series_tv.backdrop_path)
                 return `https://image.tmdb.org/t/p/w342${this.series_tv.backdrop_path}`
             else
@@ -52,7 +51,7 @@ export default {
 </script>
 
 <template lang="">
-    <div class="col-2 mb-2">
+    <div class="col-2">
         <div class="card">
             <div class="front">
                 <img class="image-film" :src="getImage()" alt="">
@@ -145,6 +144,9 @@ export default {
         margin-bottom: 0 !important;
     }
 
+    p {
+        line-height: 1.2;
+    }
 
     img {
         border-radius: 10px;

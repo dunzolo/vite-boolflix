@@ -2,7 +2,33 @@
 export default {
     data() {
         return {
-            title: ''
+            title: '',
+            menu: [
+                {
+                    label: 'Home',
+                    active: true
+                },
+                {
+                    label: 'Serie TV',
+                    active: false
+                },
+                {
+                    label: 'Film',
+                    active: false
+                },
+                {
+                    label: 'Originali',
+                    active: false
+                },
+                {
+                    label: 'Aggiunti di recente',
+                    active: false
+                },
+                {
+                    label: 'La mia lista',
+                    active: false
+                }
+            ]
         }
     },
     methods: {
@@ -15,11 +41,27 @@ export default {
 </script>
 
 <template lang="">
-    <header>
-        <h1>BOOLFIX</h1>
-        <div>
-            <input class="search-bar" type="text" placeholder="Inserisci il titolo" v-model="title">
-            <button class="btn-search" @click="sendTitle">Cerca</button>
+    <header class="container-fluid">
+        <div class="header-left">
+            <div class="logo">
+                <img src="/580b57fcd9996e24bc43c529.png" alt="">
+            </div>
+            <ul>
+                <li v-for="(item, index) in menu" :key="index">
+                    <a href="/" :class="item.active  ? 'active' : ''">{{ item.label }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header-right">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Inserisci il titolo" v-model="title">
+                <button class="btn btn-danger" @click="sendTitle"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <ul>
+                <li>DAVIDE</li>
+                <li><i class="fa-solid fa-user"></i></li>
+                <li><i class="fa-solid fa-bell"></i></li>
+            </ul>
         </div>
     </header>
 </template>
@@ -28,19 +70,63 @@ export default {
 @use '../styles/partials/variables' as *;
 
 header {
-    height: 80px;
+    height: 50px;
     background-color: $black;
-    padding: 0 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    h1 {
-        color: $red;
+    .header-left {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        .logo img {
+            width: 150px
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0px;
+
+            li a {
+                padding-right: 10px;
+                font-size: 15px;
+                color: $grey;
+                text-decoration: none;
+
+                &.active {
+                    color: $white;
+                }
+
+                &:hover {
+                    color: $white;
+                }
+
+            }
+
+        }
     }
 
-    .search-bar {
-        margin-right: 1rem;
+    .header-right {
+        display: flex;
+        align-items: center;
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0px;
+            padding-left: 1rem;
+
+            li {
+                padding-right: 10px;
+                font-size: 15px;
+                color: $white;
+            }
+        }
     }
 }
 </style>

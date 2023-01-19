@@ -25,6 +25,12 @@ export default {
             }
             return language
         },
+        getImage() {
+            if (this.film.backdrop_path)
+                return `https://image.tmdb.org/t/p/w342${this.film.backdrop_path}`
+            else
+                return '/index.jpg'
+        },
         getVoteStars() {
             let vote = Math.round(this.film.vote_average / 2);
             return vote;
@@ -45,10 +51,10 @@ export default {
 </script>
 
 <template lang="">
-    <div class="col-2 mb-2">
+    <div class="col-2">
         <div class="card">
             <div class="front">
-                <img class="image-film" :src="`https://image.tmdb.org/t/p/w342${film.backdrop_path}`" alt="">
+                <img class="image-film" :src="getImage()" alt="">
             </div>
             <div class="back">
                 <div class="info p-2">
@@ -138,6 +144,9 @@ export default {
         margin-bottom: 0 !important;
     }
 
+    p {
+        line-height: 1.2;
+    }
 
     img {
         border-radius: 10px;
