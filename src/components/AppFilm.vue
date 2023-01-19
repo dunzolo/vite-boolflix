@@ -27,7 +27,7 @@ export default {
         },
         getImage() {
             if (this.film.backdrop_path)
-                return `https://image.tmdb.org/t/p/w342${this.film.backdrop_path}`
+                return `https://image.tmdb.org/t/p/w500${this.film.backdrop_path}`
             else
                 return '/index.jpg'
         },
@@ -85,6 +85,7 @@ export default {
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
+
 .card {
     height: 350px;
 
@@ -112,7 +113,7 @@ export default {
     & .back {
         position: absolute;
         transform: perspective(600px) rotateY(180deg);
-        background: $black;
+        background: $grey;
         color: $white;
         width: 100%;
         height: 100%;
