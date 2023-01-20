@@ -12,6 +12,7 @@ export default {
         }
     },
     methods: {
+        // recupero l'elemento attivo al passaggio del mouse
         activeImage(item) {
             store.selected_item = item
         }
@@ -21,8 +22,8 @@ export default {
 
 <template lang="">
     <div class="container-fluid">
-        <h1>Series TV</h1>
         <div class="row">
+            <!-- passo le informazioni al componente appSerieTv per creare il rispettivo elemento e recupero l'elemento attivo al passaggio del mouse -->
             <AppSeriesTV v-for="(item, index) in store.array_series_TV" :key="index" :series_tv="item" @mouseover="activeImage(item)"/>
         </div>
     </div>
@@ -31,27 +32,27 @@ export default {
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
-.row {
-    &::-webkit-scrollbar {
-        height: 0.3rem;
-        max-width: 10px;
-        margin: 5rem;
+.container-fluid {
+    .row {
+
+        /* width dell'intera scrollbar */
+        &::-webkit-scrollbar {
+            height: 0.3rem;
+            max-width: 10px;
+            margin: 5rem;
+        }
+
+        /* color dell'area tracking */
+        &::-webkit-scrollbar-track {
+            background: $grey;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            /* color of the scroll thumb */
+            background: $red;
+            /* roundness of the scroll thumb */
+            border-radius: 20px;
+        }
     }
-
-    &::-webkit-scrollbar-track {
-        background: $grey;
-
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: $red;
-        max-width: 10px;
-        height: 10px;
-        border-radius: 20px;
-    }
-}
-
-h1 {
-    color: $white;
 }
 </style>

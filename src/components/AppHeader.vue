@@ -56,7 +56,7 @@ export default {
     <header class="container-fluid">
         <div class="header-left">
             <div class="logo">
-                <img src="/580b57fcd9996e24bc43c529.png" alt="">
+                <img src="/logo-netflix-header.png" alt="">
             </div>
             <ul>
                 <li v-for="(item, index) in menu" :key="index">
@@ -67,7 +67,7 @@ export default {
         <div class="header-right">
             <div class="input-group">
                 <select name="genre-films" id="genre-films" class="form-select" v-model="store.selected_genre">
-                    <option value="">Genere film</option>
+                    <option value="">Genere</option>
                     <option :value="item.id" v-for="(item, index) in store.array_genre_films" :key="index">{{ item.name }}</option>
                 </select>
                 <input class="form-control" type="text" placeholder="Inserisci il titolo" v-model="title">
@@ -84,27 +84,24 @@ export default {
 
 <style lang="scss">
 @use '../styles/partials/variables' as *;
+@use '../styles/partials/mixins' as *;
 
 header {
     height: 50px;
     background-color: $black;
-    display: flex;
-    align-items: center;
+    @include flex-center;
     justify-content: space-between;
 
     .header-left {
         height: 100%;
-        display: flex;
-        align-items: center;
+        @include flex-center;
 
         .logo img {
             width: 150px
         }
 
         ul {
-            list-style-type: none;
-            display: flex;
-            align-items: center;
+            @include flex-center;
             margin-bottom: 0px;
 
             li a {
@@ -127,13 +124,10 @@ header {
     }
 
     .header-right {
-        display: flex;
-        align-items: center;
+        @include flex-center;
 
         ul {
-            list-style-type: none;
-            display: flex;
-            align-items: center;
+            @include flex-center;
             margin-bottom: 0px;
             padding-left: 1rem;
 

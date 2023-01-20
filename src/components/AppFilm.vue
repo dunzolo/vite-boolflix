@@ -1,10 +1,13 @@
 <script>
+import { store } from '../store';
+
 export default {
     props: {
         film: Object
     },
     data() {
         return {
+            store
         }
     },
     methods: {
@@ -26,20 +29,24 @@ export default {
             return language
         },
         getImage() {
+            //verifico se il path mi restituisce un immagine
             if (this.film.backdrop_path)
-                return `https://image.tmdb.org/t/p/w780${this.film.backdrop_path}`
+                return store.path_image + this.film.backdrop_path
             else
                 return '/index.jpg'
         },
         getVoteStars() {
+            //voto da 1 a 5
             let vote = Math.round(this.film.vote_average / 2);
             return vote;
         },
         getEmptyVoteStars() {
+            //utilizzo il voto per determinare le restanti stelle vuote
             let empty_vote = 5 - this.getVoteStars();
             return empty_vote;
         },
         lenghtDescription() {
+            //descrizione supera i 200 caratteri aggiungo una stringa
             if (this.film.overview.length > 200) {
                 this.film.overview = this.film.overview.substring(0, 201) + '...'
                 return this.film.overview
@@ -52,7 +59,7 @@ export default {
 
 <template lang="">
     <div class="col-2">
-        <div class="card">
+        <div class="card mb-1">
             <div class="front">
                 <img class="image-film" :src="getImage()" alt="">
             </div>
@@ -75,7 +82,7 @@ export default {
                         <span class="fw-bold">Descrizione: </span>
                         <span>{{ lenghtDescription() }}</span>
                     </p>
-                    <img class="flag" :src="`https://www.countryflagicons.com/FLAT/64/${getFlag()}.png`" alt="">
+                    <img class="flag" :src="`${store.path_icon}${getFlag()}.png`" alt="">
                 </div>
             </div>
         </div>
@@ -84,22 +91,15 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+@use '../styles/partials/mixins' as *;
 
 
 .card {
-    height: 350px;
+    height: 300px;
 
     /* style the maincontainer class with all child div's of class .front */
     & .front {
-        position: absolute;
-        transform: perspective(600px) rotateY(0deg);
-
-        width: 100%;
-        height: 100%;
-
-        backface-visibility: hidden;
-        /* cant see the backside elements as theyre turning around */
-        transition: transform .5s linear 0s;
+        @include front-card;
 
         .image-film {
             width: 100%;
@@ -111,17 +111,7 @@ export default {
 
     /* style the maincontainer class with all child div's of class .back */
     & .back {
-        position: absolute;
-        transform: perspective(600px) rotateY(180deg);
-        background: $grey;
-        color: $white;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        padding: 5px;
-        backface-visibility: hidden;
-        /* cant see the backside elements as theyre turning around */
-        transition: transform .5s linear 0s;
+        @include back-card;
 
         .color-yellow {
             color: $yellow;
@@ -136,12 +126,9 @@ export default {
         transform: perspective(600px) rotateY(0deg);
     }
 
-    .flag {
-        width: 50px;
-    }
-
     h4,
     p {
+        //bootstrap di default imposta del margin bottom
         margin-bottom: 0 !important;
     }
 

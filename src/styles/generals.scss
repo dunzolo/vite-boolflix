@@ -20,8 +20,15 @@ body {
 }
 
 .card {
+    //bootstrap default imposta border end background color
     border: none !important;
     background-color: transparent !important;
+}
+
+h1 {
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    color: $white;
 }
 
 h4 {
@@ -30,4 +37,12 @@ h4 {
 
 p span {
     font-size: 12px;
+}
+
+.flag {
+    width: 50px;
+}
+
+ul {
+    list-style-type: none;
 }

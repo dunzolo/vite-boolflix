@@ -12,6 +12,7 @@ export default {
         }
     },
     methods: {
+        // recupero l'elemento attivo al passaggio del mouse
         activeImage(item) {
             store.selected_item = item
         }
@@ -21,8 +22,8 @@ export default {
 
 <template lang="">
     <div class="container-fluid">
-        <h1>Films</h1>
         <div class="row">
+            <!-- passo le informazioni al componente AppFilm per creare il rispettivo elemento e recupero l'elemento attivo al passaggio del mouse -->
             <AppFilm v-for="(item, index) in store.array_films" :key="index" :film="item" @mouseover="activeImage(item)"/>
         </div>
     </div>
@@ -32,32 +33,26 @@ export default {
 @use '../styles/partials/variables' as *;
 
 .container-fluid {
-
-    position: relative;
-
-    h1 {
-        color: $white;
-    }
-
     .row {
+
+        /* width dell'intera scrollbar */
         &::-webkit-scrollbar {
             height: 0.3rem;
             max-width: 10px;
             margin: 5rem;
         }
 
+        /* color dell'area tracking */
         &::-webkit-scrollbar-track {
             background: $grey;
-
         }
 
         &::-webkit-scrollbar-thumb {
+            /* color of the scroll thumb */
             background: $red;
-            max-width: 10px;
-            height: 10px;
+            /* roundness of the scroll thumb */
             border-radius: 20px;
         }
     }
-
 }
 </style>

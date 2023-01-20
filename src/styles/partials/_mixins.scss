@@ -1,0 +1,30 @@
+@use './variables' as *;
+
+@mixin front-card {
+    position: absolute;
+    transform: perspective(600px) rotateY(0deg);
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    /* cant see the backside elements as theyre turning around */
+    transition: transform .5s linear 0s;
+}
+
+@mixin back-card {
+    position: absolute;
+    transform: perspective(600px) rotateY(180deg);
+    background: $grey;
+    color: $white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    backface-visibility: hidden;
+    /* cant see the backside elements as theyre turning around */
+    transition: transform .5s linear 0s;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
