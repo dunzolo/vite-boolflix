@@ -1,16 +1,16 @@
 <script>
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
-import AppContentsFilms from './components/AppContentsFilms.vue';
-import AppContentsSeriesTV from './components/AppContentsSeriesTV.vue';
+import AppBackground from './components/AppBackground.vue';
+import AppMain from './components/AppMain.vue';
 
 import { store } from './store.js';
 
 export default {
   components: {
     AppHeader,
-    AppContentsFilms,
-    AppContentsSeriesTV
+    AppBackground,
+    AppMain
   },
   data() {
     return {
@@ -48,11 +48,11 @@ export default {
 <template lang="">
   <div>
     <AppHeader @title="searchTitle"/>
-    <AppContentsFilms />
-    <AppContentsSeriesTV />
+    <AppBackground/>
+    <AppMain/>
   </div>
 </template>
 
 <style lang="scss">
-@use './styles/generals.scss'
+@use './styles/generals.scss';
 </style>

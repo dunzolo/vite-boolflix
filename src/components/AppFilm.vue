@@ -27,7 +27,7 @@ export default {
         },
         getImage() {
             if (this.film.backdrop_path)
-                return `https://image.tmdb.org/t/p/w500${this.film.backdrop_path}`
+                return `https://image.tmdb.org/t/p/w780${this.film.backdrop_path}`
             else
                 return '/index.jpg'
         },

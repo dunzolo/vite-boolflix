@@ -27,7 +27,7 @@ export default {
         },
         getImage() {
             if (this.series_tv.backdrop_path)
-                return `https://image.tmdb.org/t/p/w500${this.series_tv.backdrop_path}`
+                return `https://image.tmdb.org/t/p/w780${this.series_tv.backdrop_path}`
             else
                 return '/index.jpg'
         },

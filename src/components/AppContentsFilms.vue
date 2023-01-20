@@ -11,9 +11,9 @@ export default {
             store
         }
     },
-    computed: {
-        backgroundImage() {
-
+    methods: {
+        activeImage(item) {
+            store.selected_item = item
         }
     }
 }
@@ -23,7 +23,7 @@ export default {
     <div class="container-fluid">
         <h1>Films</h1>
         <div class="row">
-            <AppFilm v-for="(item, index) in store.array_films" :key="index" :film="item"/>
+            <AppFilm v-for="(item, index) in store.array_films" :key="index" :film="item" @mouseover="activeImage(item)"/>
         </div>
     </div>
 </template>
@@ -31,27 +31,33 @@ export default {
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
-.row {
-    &::-webkit-scrollbar {
-        height: 0.3rem;
-        max-width: 10px;
-        margin: 5rem;
+.container-fluid {
+
+    position: relative;
+
+    h1 {
+        color: $white;
     }
 
-    &::-webkit-scrollbar-track {
-        background: $grey;
+    .row {
+        &::-webkit-scrollbar {
+            height: 0.3rem;
+            max-width: 10px;
+            margin: 5rem;
+        }
 
+        &::-webkit-scrollbar-track {
+            background: $grey;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: $red;
+            max-width: 10px;
+            height: 10px;
+            border-radius: 20px;
+        }
     }
 
-    &::-webkit-scrollbar-thumb {
-        background: $red;
-        max-width: 10px;
-        height: 10px;
-        border-radius: 20px;
-    }
-}
-
-h1 {
-    color: $white;
 }
 </style>
